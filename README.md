@@ -6,7 +6,7 @@ Beyond the paraxial limit, "Gaussian beam" does not name one field. The name
 depends on where the Gaussian is: in the angular spectrum, or in the pupil of a
 lens. `nonparax` computes six such beams as exact solutions of Maxwell's
 equations. It includes the beams that COMSOL and the Optical Tweezers Toolbox
-(OTT) use. The theory is in the white paper: [PDF](theory/nonparax.pdf), source [`theory/nonparax.tex`](theory/nonparax.tex).
+(OTT) use. The theory is in the [white paper](theory/nonparax.pdf).
 
 ## Install
 
