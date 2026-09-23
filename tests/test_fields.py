@@ -5,7 +5,6 @@ import warnings
 import numpy as np
 import pytest
 from scipy.constants import c as c0, epsilon_0, mu_0
-from scipy.integrate import trapezoid
 
 import nonparax as npx
 
@@ -114,7 +113,7 @@ def test_power_flux_equals_P(kind):
     R, V = np.meshgrid(rho, vphi, indexing="ij")
     E, H = npx.EH(kind, R * np.cos(V), R * np.sin(V), 0.0, w0=w0, jones=(1, 0), **BASE)
     Sz = 0.5 * np.real(E[0] * np.conj(H[1]) - E[1] * np.conj(H[0]))
-    flux = trapezoid(np.mean(Sz, axis=1) * 2 * np.pi * rho, rho)
+    flux = np.trapezoid(np.mean(Sz, axis=1) * 2 * np.pi * rho, rho)
     assert abs(flux / BASE["P"] - 1) < 1e-4
 
 
