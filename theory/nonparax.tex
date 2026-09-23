@@ -1,0 +1,377 @@
+% White paper for the nonparaxial-gaussian package. Compile with: latexmk -pdf nonparax.tex
+\documentclass[
+	aps,
+	pra,
+	reprint,
+	amsmath,
+	amssymb,
+	superscriptaddress,
+	nofootinbib
+]{revtex4-2}
+
+\usepackage{booktabs}
+\usepackage[dvipsnames,table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.markings,decorations.pathreplacing}
+\usepackage{tikz-3dplot}
+\usepackage{microtype}
+\usepackage[
+	colorlinks=true,
+	citecolor=blue,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+]{hyperref}
+\usepackage{xurl}
+
+\definecolor{capl}{HTML}{0072B2}    % aplanatic objective
+\definecolor{cthin}{HTML}{D55E00}   % thin lens
+\definecolor{cspec}{HTML}{009E73}   % Gaussian spectrum
+
+\newcommand{\affilANU}{Research School of Physics, Australian National University, Canberra ACT 2601, Australia}
+
+\newcommand{\ort}[1]{\mathop{}\!\mathbf{\hat{\boldsymbol{\mathbf{#1}}}}}
+% Euler number and the imaginary unit
+\newcommand{\iu}{\mathrm{i}\mkern1mu}
+\newcommand{\eu}{\mathrm{e}\mkern1mu}
+% upright differential with operator spacing: \int f\dd x
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+% upright real and imaginary parts
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+% colored text
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+
+
+\begin{document}
+
+\title{Gaussian Beams Beyond the Paraxial Approximation}
+
+\author{Ivan Toftul}
+\affiliation{\affilANU}
+\author{Claude Code}
+\noaffiliation
+
+\date{\today}
+
+\begin{abstract}
+
+
+Beyond the paraxial limit the name ``Gaussian beam'' does not define a unique field. We compare six exact beams with the same paraxial limit. Three come from physical constructions: a Gaussian angular spectrum, and a Gaussian pupil focused by an aplanatic objective or by a thin lens. Three are the beams of COMSOL and of the Optical Tweezers Toolbox. We give the envelope and the polarization rule of each.
+\end{abstract}
+
+\maketitle
+
+
+
+
+
+\section{Paraxial Gaussian beam}
+
+The field has the time dependence $\eu^{-\iu\omega t}$. We use SI units. The host medium is homogeneous and lossless. Its absolute permittivity is $\varepsilon$ and its absolute permeability is $\mu$. The refractive index is $n=c\sqrt{\varepsilon\mu}$ and the wavenumber is $k=\omega\sqrt{\varepsilon\mu}=2\pi n/\lambda$, with $\lambda$ the vacuum wavelength. The beam propagates along $z$ and has the circular polarization $\ort{e}_\sigma=(\ort{x}+\iu\sigma\ort{y})/\sqrt2$ with the helicity $\sigma=\pm1$. A linearly polarized beam is a sum of the two helicities, for example $\ort{x}=(\ort{e}_++\ort{e}_-)/\sqrt2$. We write the position as $\mathbf r=(\rho,\varphi,z)$ in cylindrical coordinates, with $\rho=\sqrt{x^2+y^2}$ and the azimuth $\varphi$. The symbol $\phi$ is kept for the azimuth of the wavevector. We use the symmetric fields $\sqrt{\varepsilon}\,\mathbf E$ and $\sqrt{\mu}\,\mathbf H$, which obey
+\begin{equation}
+	\sqrt{\mu}\,\mathbf H=\ort{k}\times\sqrt{\varepsilon}\,\mathbf E
+	\label{eq:pw}
+\end{equation}
+for a plane wave with direction $\ort{k}$.
+
+The paraxial Gaussian beam is
+\begin{align}
+\sqrt{\varepsilon}\,\mathbf{E}
+&=
+\mathcal A_0\,\ort{e}_\sigma\,
+\frac{w_0}{w(z)}
+\exp\!\left[-\frac{\rho^2}{w^2(z)}\right]
+\nonumber\\&\quad\times
+\exp\!\left\{\iu\!\left[kz-\eta(z)+\frac{k\rho^2}{2R(z)}\right]\right\},
+\label{eq:paraxial}\\
+w(z)&=w_0\sqrt{1+z^2/z_0^2},\qquad
+\frac{1}{R(z)}=\frac{z}{z^2+z_0^2},
+\nonumber\\
+\eta(z)&=\arctan\frac{z}{z_0},\qquad
+z_0=\frac{kw_0^2}{2}.
+\label{eq:parax_def}
+\end{align}
+with $\sqrt{\mu}\,\mathbf H=\ort{z}\times\sqrt{\varepsilon}\,\mathbf E$. Here $\mathcal A_0$ is the field amplitude at the focus, $w_0$ the waist radius, $z_0$ the Rayleigh range, $R$ the wavefront curvature radius and $\eta$ the Gouy phase. Far from the waist the beam diverges with the half-angle $\theta_0=2/(kw_0)=\lambda/(\pi nw_0)$. 
+
+Equation~\eqref{eq:paraxial} solves the paraxial wave equation, not Maxwell's equations, and it needs $kw_0\gg2$. Beyond this limit no closed-form Gaussian beam exists, and the name ``Gaussian beam'' no longer defines a unique field. One must say where the Gaussian is. It can be in the angular spectrum, in the pupil of an aplanatic objective, or in the pupil of a thin lens (Fig.~\ref{fig:constructions}). These three choices and three variants used in COMSOL and OTT give six different exact beams (Table~\ref{tab:env}).
+
+\section{Exact beams}
+
+A monochromatic beam radiated by sources at $z\to-\infty$ is a sum of propagating plane waves,
+\begin{equation}
+\mathbf E(\mathbf r)=\int \limits_{\theta<\theta_{\max}}\dd\Omega\;
+\mathbf{E}_\infty(\theta,\phi)\,\eu^{\iu\mathbf k\cdot\mathbf r},
+\label{eq:debye}
+\end{equation}
+with $\mathbf k=k\ort{k}$, $\ort{k} = \cos\phi \sin\theta\, \ort{x} +\sin\phi \sin\theta\, \ort{y} + \cos\theta\, \ort{z}$ (Fig.~\ref{fig:angles}), $\dd\Omega=\sin\theta\dd\theta\dd\phi$, $0\le\phi<2\pi$ and $\ort{k}\cdot\mathbf{E}_\infty=0$. The limit is $\theta_{\max}=\pi/2$, unless a stop sets $\theta_{\max}=\arcsin(\mathrm{NA}/n)$. The beam contains no evanescent waves, because they decay away from the sources. Each plane wave solves Maxwell's equations, so Eq.~\eqref{eq:debye} is exact for every transverse $\mathbf{E}_\infty$. The amplitude $\mathbf{E}_\infty$ is the plane-wave amplitude per solid angle. Each plane wave also carries the magnetic amplitude $\sqrt{\mu}\,\mathbf H_\infty=\ort{k}\times\sqrt{\varepsilon}\,\mathbf E_\infty$, Eq.~\eqref{eq:pw}. The magnetic field $\mathbf H(\mathbf r)$ is Eq.~\eqref{eq:debye} with $\mathbf E_\infty$ replaced by $\mathbf H_\infty$. A real $\mathbf E_\infty$ puts the focus at $\mathbf r=0$. A focus at $\mathbf r_0$ multiplies $\mathbf E_\infty$ by $\eu^{-\iu\mathbf k\cdot\mathbf r_0}$.
+
+\begin{figure}[t]
+\centering
+\tdplotsetmaincoords{65}{115}
+\begin{tikzpicture}[tdplot_main_coords, >=Latex, font=\footnotesize, scale=1.8]
+  \def\th{40}\def\ph{55}
+  \pgfmathsetmacro{\ct}{cos(\th)}\pgfmathsetmacro{\st}{sin(\th)}
+  \pgfmathsetmacro{\cp}{cos(\ph)}\pgfmathsetmacro{\sp}{sin(\ph)}
+  \coordinate (O) at (0,0,0);
+  \coordinate (K) at ({\st*\cp},{\st*\sp},{\ct});
+  \coordinate (Kxy) at ({\st*\cp},{\st*\sp},0);
+  % axes
+  \draw[->] (O) -- (1.25,0,0) node[anchor=north east] {$x$};
+  \draw[->] (O) -- (0,1.25,0) node[anchor=north west] {$y$};
+  \draw[->] (O) -- (0,0,1.3) node[anchor=south] {$z$};
+  % reference sphere: equator and the meridian through k
+  \draw[dotted] plot[domain=-10:100,samples=40] ({cos(\x)},{sin(\x)},0);
+  \draw[dotted] plot[domain=0:95,samples=40] ({sin(\x)*\cp},{sin(\x)*\sp},{cos(\x)});
+  % meridional plane
+  \fill[cspec,opacity=0.12] (O) -- (0,0,1) -- plot[domain=0:\th,samples=20] ({sin(\x)*\cp},{sin(\x)*\sp},{cos(\x)}) -- cycle;
+  % direction of the plane wave and its projection
+  \draw[->,very thick] (O) -- (K) node[anchor=south east] {$\ort{k}$};
+  \draw[dashed] (K) -- (Kxy) (O) -- (Kxy);
+  % angles
+  \draw[->,capl] plot[domain=0:\ph,samples=20] ({0.35*cos(\x)},{0.35*sin(\x)},0);
+  \node[capl] at ({0.48*cos(\ph/2)},{0.48*sin(\ph/2)},0) {$\phi$};
+  \draw[->,capl] plot[domain=0:\th,samples=20] ({0.45*sin(\x)*\cp},{0.45*sin(\x)*\sp},{0.45*cos(\x)});
+  \node[capl] at ({0.58*sin(\th/2)*\cp},{0.58*sin(\th/2)*\sp},{0.58*cos(\th/2)}) {$\theta$};
+  % unit vectors of the plane wave
+  \draw[->,thick,cthin] (K) -- ++({0.4*\ct*\cp},{0.4*\ct*\sp},{-0.4*\st}) node[anchor=west] {$\ort{\theta}$};
+  \draw[->,thick,cthin] (K) -- ++({-0.4*\sp},{0.4*\cp},0) node[anchor=west] {$\ort{\phi}$};
+  \fill (O) circle (0.6pt);
+\end{tikzpicture}
+\caption{Angles and unit vectors of Eqs.~\eqref{eq:debye}--\eqref{eq:rule}. A plane wave travels along $\ort{k}$. The polar angle $\theta$ is measured from $z$, and the azimuth $\phi$ from $x$. The meridional plane (shaded) holds $z$ and $\ort{k}$. The unit vector $\ort{\theta}$ lies in this plane, and $\ort{\phi}$ is normal to it. The dotted arcs lie on the unit sphere.
+%The polar angle $\theta$ is measured from the beam axis $z$, and the azimuth $\phi$ from the polarization axis $x$. The meridional plane (shaded) holds $z$ and $\ort{k}$. The unit vector $\ort{\theta}$ lies in this plane and $\ort{\phi}$ is normal to it. Both are normal to $\ort{k}$. The dotted arcs are on the unit sphere, which is the reference sphere of a lens with the focus at the origin.
+}
+\label{fig:angles}
+\end{figure}
+
+
+A non-paraxial Gaussian beam is a choice of $\mathbf{E}_\infty$. The choice has two parts, an envelope $a(\theta)$ and a unit polarization vector $\mathbf p$:
+\begin{equation}
+\sqrt{\varepsilon}\,\mathbf{E}_\infty=\mathcal A\,a(\theta)\,\mathbf p,
+\qquad
+\sqrt{\mu}\,\mathbf{H}_\infty=\mathcal A\,a(\theta)\,\ort{k}\times\mathbf p,
+\label{eq:ap}
+\end{equation}
+with $a(0)=1$, $|\mathbf p|=1$ and $\mathbf p(0,\phi)=\ort{e}_\sigma$, so that the plane wave along $z$ has the polarization of the paraxial beam~\eqref{eq:paraxial}. Every rule in this note has the form
+\begin{equation}
+\mathbf p=\eu^{\iu\sigma\phi}\,\frac{c(\theta)\,\ort{\theta}+\iu\sigma\,\ort{\phi}}{\sqrt{1+c^2(\theta)}},
+\label{eq:rule}
+\end{equation}
+where
+\begin{align*}
+\ort{\theta}&= \cos\phi \cos\theta \ort{x} + \sin\phi \cos\theta \ort{y} -\sin\theta \ort{z},\\
+\ort{\phi}&= -\sin\phi \ort{x} + \cos\phi \ort{y}
+\end{align*}
+are the meridional and azimuthal unit vectors. With $\ort{k}$ they form the right-handed triad $\ort{\theta}\times\ort{\phi}=\ort{k}$. At $\theta=0$ the pair $(\ort{\theta},\ort{\phi})$ is $(\ort{x},\ort{y})$ turned by $\phi$ about $z$. The phase $\eu^{\iu\sigma\phi}$ cancels this turn, so that $\mathbf p(0,\phi)=\ort{e}_\sigma$ for every $\phi$. The real weight $c(\theta)$ is the ratio of the meridional and the azimuthal components of $\mathbf p$, with $c(0)=1$. A real $c$ means that the system adds no phase between these two components. The rules differ only in $c(\theta)$ (Table~\ref{tab:env}). For $c=1$ each plane wave is circularly polarized. Figure~\ref{fig:rule} shows the direction of $\mathbf p$ and the roles of $c$.
+
+The integral over $\phi$ in Eq.~\eqref{eq:debye} gives Bessel functions. In the cylindrical coordinates $(\rho,\varphi,z)$ of $\mathbf r$,
+\begin{align}
+\sqrt{\varepsilon}\,\mathbf E(\mathbf r)&=2\pi\mathcal A\int \limits_0^{\theta_{\max}}\dd\theta\,\frac{a\sin\theta\,\eu^{\iu kz\cos\theta}}{\sqrt{1+c^2}}\,\Big[\frac{c\cos\theta+1}{\sqrt2}J_0\,\ort{e}_\sigma
+\nonumber\\&\quad
+-\frac{c\cos\theta-1}{\sqrt2}J_2\,\eu^{2\iu\sigma\varphi}\,\ort{e}_{-\sigma}
+-\iu c\sin\theta\,J_1\,\eu^{\iu\sigma\varphi}\,\ort{z}\Big],
+\label{eq:bessel}
+\end{align}
+\begin{align}
+\sqrt{\mu}\,\mathbf H(\mathbf r)&=-2\pi\iu\sigma\mathcal A\int \limits_0^{\theta_{\max}}\dd\theta\,\frac{a\sin\theta\,\eu^{\iu kz\cos\theta}}{\sqrt{1+c^2}}
+\nonumber\\&\quad\times
+\Big[\frac{\cos\theta+c}{\sqrt2}J_0\,\ort{e}_\sigma
+\nonumber\\&\quad
+-\frac{\cos\theta-c}{\sqrt2}J_2\,\eu^{2\iu\sigma\varphi}\,\ort{e}_{-\sigma}
+-\iu\sin\theta\,J_1\,\eu^{\iu\sigma\varphi}\,\ort{z}\Big],
+\label{eq:bessel_H}
+\end{align}
+where $J_m=J_m(k\rho\sin\theta)$ and $\ort{e}_{-\sigma}=\ort{e}_\sigma^*$. For $c=1$, $\sqrt{\mu}\,\mathbf H=-\iu\sigma\sqrt{\varepsilon}\,\mathbf E$. Each term in Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H} has the total angular momentum $\sigma$ along $z$. On the axis only $J_0$ is not zero, and the field is along $\ort{e}_\sigma$.
+
+The amplitude $\mathcal A$ is not the field at the focus. In the paraxial limit, the focal field of Eq.~\eqref{eq:bessel} is $\mathcal A_0\ort{e}_\sigma$ with $\mathcal A_0=4\pi\mathcal A/(kw_0)^2$. Since $|\mathbf p|=1$, the power of the beam is
+\begin{equation}
+P =  \int \limits_{x,y,z=0} \frac{1}{2} \Re \left( \mathbf{E} \times \mathbf{H} \right) \cdot \dd  \mathbf{S}=\frac{4\pi^3|\mathcal A|^2}{k^2\sqrt{\varepsilon\mu}}\int \limits_0^{\theta_{\max}}a^2\sin\theta\dd\theta.
+\label{eq:power}
+\end{equation}
+
+
+The two helicities form a basis, so every input polarization is $\ort{e}=\alpha\,\ort{e}_++\beta\,\ort{e}_-$ with $|\alpha|^2+|\beta|^2=1$. Maxwell's equations are linear, so this input gives the beam
+\begin{equation}
+	\begin{split}
+		\mathbf E&=\alpha\,\mathbf E^{(+)}+\beta\,\mathbf E^{(-)}, \\
+		\mathbf H&=\alpha\,\mathbf H^{(+)}+\beta\,\mathbf H^{(-)},
+	\end{split}
+\label{eq:arbitrary}
+\end{equation}
+where $\mathbf E^{(\sigma)}$ and $\mathbf H^{(\sigma)}$ is the beam with the helicity $\sigma$ and the same $a$ and $c$. In practice, one complex number $m$ fixes the input, $\ort{e}=(\ort{x}+m\,\ort{y})/\sqrt{1+|m|^2}$. Then
+\begin{equation}
+\alpha=\frac{1-\iu m}{\sqrt{2(1+|m|^2)}},\qquad
+\beta=\frac{1+\iu m}{\sqrt{2(1+|m|^2)}}.
+\label{eq:m}
+\end{equation}
+For example, $m=0$ gives $\ort{x}$, a real $m$ gives linear polarization at the angle $\arctan m$ to $x$, and $m=\iu\sigma$ gives $\ort{e}_\sigma$. The input $\ort{y}$ is the limit $m\to\infty$. The recipe needs the same rule $c(\theta)$ for both helicities. All rules in this note obey this, because none of them distinguishes the two helicities.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[>=Latex, font=\footnotesize, scale=1.3]
+  \def\c{1.5}\def\wt{40}
+  \pgfmathsetmacro{\u}{\c/sqrt(1+\c*\c)}\pgfmathsetmacro{\v}{1/sqrt(1+\c*\c)}
+  \draw[->] (-1.2,0) -- (1.3,0) node[below] {$\ort{\theta}$};
+  \draw[->] (0,-0.62) -- (0,1.0) node[left] {$\ort{\phi}$};
+  \draw[dotted] (0,0) circle ({1/sqrt(2)});
+  \draw[very thick,capl] (0,0) ellipse ({\u} and {\v});
+  \draw[->,very thick,capl] (100:{\u} and {\v}) -- (101:{\u} and {\v});
+  \draw[->,thick] (0,0) -- ({\u*cos(\wt)},{\v*sin(\wt)}) node[above right=-2pt] {$\Re\mathbf p\,\eu^{-\iu\omega t}$};
+  \draw[dotted] (\u,0) -- (\u,{-\v-0.25}) (0,\v) -- ({-\u-0.25},\v);
+  \draw[<->] (0,{-\v-0.18}) -- (\u,{-\v-0.18}) node[below,pos=0.5] {$c/\sqrt{1+c^2}$};
+  \draw[<->] ({-\u-0.18},0) -- ({-\u-0.18},\v) node[left,pos=0.5] {$1/\sqrt{1+c^2}$};
+  \draw (0,0) circle (2.2pt); \fill (0,0) circle (0.7pt);
+  \node[above left] at (0,0) {$\ort{k}$};
+\end{tikzpicture}
+\caption{The unit polarization vector $\mathbf p$ of one plane wave, Eq.~\eqref{eq:rule}, for $\sigma=+1$. The view is in the transverse plane of the plane wave, with $\ort{k}$ out of the page. In time, the real field $\Re\mathbf p\,\eu^{-\iu\omega t}$ traces an ellipse (blue) with the semi-axes $c/\sqrt{1+c^2}$ along $\ort{\theta}$ and $1/\sqrt{1+c^2}$ along $\ort{\phi}$, here $c=1.5$. For $c=1$ the ellipse is the dotted circle. The envelope $a(\theta)$ in Eq.~\eqref{eq:ap} scales the ellipse, and the factor $\eu^{\iu\sigma\phi}$ in $\mathbf p$ shifts only its phase.}
+\label{fig:rule}
+\end{figure}
+
+\section{Six beams}
+
+Table~\ref{tab:env} lists six beams, A--F, with the same paraxial waist $w_0$. Beams A--C come from three physical constructions (Fig.~\ref{fig:constructions}). Beams D--F are the beams of COMSOL and Optical Tweezer Toolbox (OTT)~\cite{Lenton2020}.
+
+
+\begin{figure*}[t]
+	\centering
+	\scalebox{0.8}{\begin{tikzpicture}[>=Latex, font=\footnotesize,
+			ray/.style={thick, postaction={decorate},
+				decoration={markings, mark=at position 0.5 with {\arrow{>}}}},
+			pw/.style={cspec, postaction={decorate},
+				decoration={markings, mark=at position 0.6 with {\arrow{>}}}}]
+			\def\f{1.9}       % focal length = radius of the reference sphere
+			\def\xp{-3.0}     % pupil plane
+			\def\wap{1.0}     % 1/e radius of the pupil Gaussian
+			\def\rtwo{1.55}   % stop radius (B) and second ray (C)
+			\def\kwz{3}       % k w0 for the weights in (A)
+			% ------------------------------------------------- A: Gaussian spectrum, no lens
+			\begin{scope}
+				\draw[->,thick] (-2.8,0) -- (1.2,0);
+				\draw[dotted] (100:2.3) arc (100:260:2.3);
+				\foreach \t in {0,20,40,60,75,-20,-40,-60,-75}{
+					\pgfmathsetmacro{\amp}{exp(-(\kwz*sin(\t)/2)^2)}
+					\pgfmathsetmacro{\lw}{0.25+1.5*\amp}
+					\draw[pw,line width=\lw pt] ({180-\t}:2.3) -- ({180-\t}:0.45);
+				}
+				\draw[->,thick] (180:2.55) arc (180:140:2.55);
+				\node at (160:2.82) {$\theta$};
+				\draw[dashed] (0,-2) -- (0,2);
+				\node[above right] at (-0.1,2) {focal plane};
+				\fill[cspec!25] plot[domain=-1.9:1.9,samples=60] ({0.7*exp(-(\x/0.75)^2)},\x) -- (0,-1.9) -- cycle;
+				\draw[thick,cspec!70!black] plot[domain=-1.9:1.9,samples=60] ({0.7*exp(-(\x/0.75)^2)},\x);
+				\draw[<->] (1.0,0) -- (1.0,0.75) node[pos=0.5,right] {$w_0$};
+				\fill (0,0) circle (1.1pt);
+				\node[font=\bfseries] at (-2.8,2.3) {A};
+				\node[right] at (-2.55,2.3) {no lens};
+				\node at (-0.8,-2.75) {$a=\sqrt{(1+\cos^2\theta)/2}\,\eu^{-(kw_0\sin\theta/2)^2}$};
+			\end{scope}
+			% ------------------------------------------------------ B: aplanatic objective
+			\begin{scope}[shift={(6.2,0)}]
+				\pgfmathsetmacro{\thz}{asin(\wap/\f)}
+				\pgfmathsetmacro{\thm}{asin(\rtwo/\f)}
+				\pgfmathsetmacro{\xz}{-\f*cos(\thz)}
+				\pgfmathsetmacro{\xm}{-\f*cos(\thm)}
+				\draw[->,thick] (-3.8,0) -- (0.9,0);
+				\fill[gray!12] plot[domain=-1.9:1.9,samples=60] ({\xp-0.6*exp(-(\x/\wap)^2)},\x) -- (\xp,-1.9) -- cycle;
+				\fill[gray!25] plot[domain=-\rtwo:\rtwo,samples=60] ({\xp-0.6*exp(-(\x/\wap)^2)},\x) -- (\xp,-\rtwo) -- cycle;
+				\draw[thick] plot[domain=-1.9:1.9,samples=60] ({\xp-0.6*exp(-(\x/\wap)^2)},\x);
+				\draw[dashed] (\xp,-\rtwo) -- (\xp,\rtwo);
+				\draw[line width=2pt] (\xp,\rtwo) -- (\xp,2);
+				\draw[line width=2pt] (\xp,-\rtwo) -- (\xp,-2);
+				\node[right] at (\xp+0.03,1.8) {$r_{\max}$};
+				\draw[<->] (\xp-0.72,0) -- (\xp-0.72,\wap) node[pos=0.5,left] {$w_\mathrm{ap}$};
+				\draw[thick] (110:\f) arc (110:240:\f);
+				\node[above] at (-1.2,2) {aplanatic objective};
+				\draw[thick] (\xp-0.3,\rtwo) -- (\xm,\rtwo) -- (0,0);
+				\draw[ray,capl] (\xp-0.3,\wap) -- (\xz,\wap);
+				\draw[ray,capl] (\xz,\wap) -- (0,0);
+				\fill[capl] (\xz,\wap) circle (1.3pt);
+				\fill (\xm,\rtwo) circle (1.3pt);
+				\node[capl] at (-0.7,-1.3) {$r=f\sin\theta$};
+				\draw[capl] (180:0.6) arc (180:{180-\thz}:0.6);
+				\node[capl] at (160:0.82) {$\theta$};
+				\draw (180:1.15) arc (180:{180-\thm}:1.15);
+				\node at (168:1.42) {$\theta_{\max}$};
+				\draw[<->] (-\f,-0.6) -- (0,-0.6) node[pos=0.5,below] {$f$};
+				\node at (0.5,-1.75) {$\mathrm{NA}=n\sin\theta_{\max}$};
+				\fill (0,0) circle (1.1pt);
+				\node[font=\bfseries] at (-3.8,2.3) {B};
+				\node at (-1.5,-2.75) {$a=\cos^{1/2}\theta\,\eu^{-(kw_0\sin\theta/2)^2}$};
+			\end{scope}
+			% ---------------------------------------------------------------- C: thin lens
+			\begin{scope}[shift={(11.4,0)}]
+				\pgfmathsetmacro{\tha}{atan(\wap/\f)}
+				\draw[->,thick] (-3.8,0) -- (0.9,0);
+				\fill[gray!25] plot[domain=-1.9:1.9,samples=60] ({\xp-0.6*exp(-(\x/\wap)^2)},\x) -- (\xp,-1.9) -- cycle;
+				\draw[thick] plot[domain=-1.9:1.9,samples=60] ({\xp-0.6*exp(-(\x/\wap)^2)},\x);
+				\draw[dashed] (\xp,-2) -- (\xp,2);
+				\draw[<->] (\xp-0.72,0) -- (\xp-0.72,\wap) node[pos=0.5,left] {$w_\mathrm{ap}$};
+				\draw[line width=1.2pt] (-\f,-2) -- (-\f,2);
+				\node[above] at (-\f,2) {thin lens};
+				\draw[thick] (\xp-0.3,\rtwo) -- (-\f,\rtwo) -- (0,0);
+				\draw[ray,cthin] (\xp-0.3,\wap) -- (-\f,\wap);
+				\draw[ray,cthin] (-\f,\wap) -- (0,0);
+				\fill[cthin] (-\f,\wap) circle (1.3pt);
+				\fill (-\f,\rtwo) circle (1.3pt);
+				\node[cthin] at (-0.95,-1.3) {$r=f\tan\theta$};
+				\draw[cthin] (180:0.75) arc (180:{180-\tha}:0.75);
+				\node[cthin] at (162:1.0) {$\theta$};
+				\draw[<->] (-\f,-0.6) -- (0,-0.6) node[pos=0.5,below] {$f$};
+				\fill (0,0) circle (1.1pt);
+				\node[font=\bfseries] at (-3.8,2.3) {C};
+				\node at (-1.5,-2.75) {$a=\cos^{-3/2}\theta\,\eu^{-(kw_0\tan\theta/2)^2}$};
+			\end{scope}
+	\end{tikzpicture}}
+	\caption{The three physical constructions, beams A--C of Table~\ref{tab:env}. (A) Gaussian spectrum, no lens. Plane waves arrive from all directions $\theta$. The line width shows the Gaussian factor $\eu^{-(kw_0\sin\theta/2)^2}$ of the envelope, for $kw_0=3$. Green curve: the transverse field in the focal plane, radius $w_0$. (B) Aplanatic objective. The Gaussian pupil field, $1/\eu$ radius $w_{\mathrm{ap}}$, bends at the reference sphere of radius $f$, $r=f\sin\theta$. The stop at $r_{\max}$ blocks the tails (light gray) and sets $\theta_{\max}$ and the NA. (C) Thin lens. The same pupil field bends at a plane at distance $f$ from the focus, $r=f\tan\theta$. Under each panel: the envelope $a(\theta)$ of Table~\ref{tab:env}. Beam D (COMSOL) is beam A with $c=\cos\theta$. Beams E and F (OTT) use the mappings of C and B without the energy-conservation factor.}
+	\label{fig:constructions}
+\end{figure*}
+
+
+\begin{table*}[t]
+	\caption{Six non-paraxial Gaussian beams with the same paraxial waist $w_0$. $a(\theta)$ is the envelope per solid angle, Eq.~\eqref{eq:ap}. $c(\theta)$ is the meridional weight of the unit polarization vector, Eq.~\eqref{eq:rule}. The parameters, together with $\lambda$, $n$, $\sigma$ and $\mathcal A$, fix the beam uniquely. For D the field also depends on the finite set of plane waves. For B and C an optional stop sets the limit $\theta_{\max}=\arcsin(\mathrm{NA}/n)$ in Eq.~\eqref{eq:debye}. It does not change $a(\theta)$ or $c(\theta)$. For E and F the NA sets the $1/\eu$ angle $\theta_b=\arcsin(\mathrm{NA}/n)$, and \texttt{truncation\_angle} adds an optional stop. Figure~\ref{fig:constructions} shows where the Gaussian of beams A--C lies.}
+	\label{tab:env}
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llll@{}}
+		\toprule
+		beam & parameters & envelope $a(\theta)$ & $c(\theta)$\\
+		\midrule
+		A, Gaussian spectrum & $w_0$ & $\sqrt{(1+\cos^2\theta)/2}\;\eu^{-(kw_0\sin\theta/2)^2}$ & $1/\cos\theta$\\
+		B, aplanatic objective & $w_0$ ($+$ NA of a stop) & $\cos^{1/2}\theta\;\eu^{-(kw_0\sin\theta/2)^2}$ & $1$\\
+		C, thin lens & $w_0$ ($+$ NA of a stop) & $\cos^{-3/2}\theta\;\eu^{-(kw_0\tan\theta/2)^2}$ & $1$\\
+		\midrule
+		D, COMSOL plane wave expansion & $w_0$ & $\cos\theta\sqrt{(1+\cos^2\theta)/2}\;\eu^{-(kw_0\sin\theta/2)^2}$ & $\cos\theta$\\
+		E, OTT \texttt{tantheta} (default) & NA & $\eu^{-(kw_0\tan\theta/2)^2}$, $kw_0=2/\tan\theta_b$ & $1$\\
+		F, OTT \texttt{sintheta} & NA & $\eu^{-(kw_0\sin\theta/2)^2}$, $kw_0=2n/\mathrm{NA}$ & $1$\\
+		\bottomrule
+	\end{tabular*}
+\end{table*}
+
+
+
+
+\emph{A, Gaussian spectrum} (Fig.~\ref{fig:constructions}A, no lens). The Gaussian is a function of the transverse wavevector $k_\rho=k\sin\theta$. The transverse part of $\sqrt{\varepsilon}\,\mathbf{E}_\infty$ is $\mathcal A\cos\theta\,\eu^{-(k_\rho w_0/2)^2}\,\ort{e}_\sigma$. The solid angle is $\dd\Omega=\dd^2k_\rho/(k^2\cos\theta)$, so the factor $\cos\theta$ cancels. At $z=0$, Eq.~\eqref{eq:debye} is then the Fourier integral of $\eu^{-(k_\rho w_0/2)^2}$, which is proportional to $\eu^{-\rho^2/w_0^2}$. Thus the transverse field is exactly Gaussian in the focal plane, and $E_z$ is not. The only error is the evanescent part $k_\rho>k$, of relative weight $\eu^{-(kw_0/2)^2}$, which Eq.~\eqref{eq:debye} does not contain. The transverse part is along $\ort{e}_\sigma$ only for $c=1/\cos\theta$. For numerics, write this rule as $\mathbf p=\eu^{\iu\sigma\phi}(\ort{\theta}+\iu\sigma\cos\theta\,\ort{\phi})/\sqrt{1+\cos^2\theta}$, which stays finite at $\theta=\pi/2$. With $|\mathbf p|=1$, this rule gives the envelope $a$ of Table~\ref{tab:env}. A lens with the rule $c=1$ cannot make this field.
+
+\emph{B and C, lenses} (Fig.~\ref{fig:constructions}B, C). The field in the pupil of a lens with the focal length $f$ is $\sqrt{\varepsilon}\,\mathbf E_{\mathrm{ap}}=\mathcal A_{\mathrm{ap}}\,\ort{e}_\sigma\,\eu^{-r^2/w_{\mathrm{ap}}^2}$, where $r$ is the distance from the axis. The lens sends the pupil ring at $r$ to the direction $\theta$ at the focus. This ray mapping $r=g(\theta)$ is the only difference between beams B and C. Each pupil ring and its band of directions carry the same power. This gives the energy-conservation factor $A(\theta)=\sqrt{g\,g'/(f^2\sin\theta)}$ and the envelope $a\propto\eu^{-g^2/w_{\mathrm{ap}}^2}A(\theta)$~\cite{Novotny2012}. The lens turns the field in the meridional plane by $\theta$. This is the Richards--Wolf rule $c=1$~\cite{Richards1959}. An aplanatic objective obeys the sine condition, so $g=f\sin\theta$ and $A=\cos^{1/2}\theta$. A thin lens bends the rays at a plane at the distance $f$ from the focus, so $g=f\tan\theta$ and $A=\cos^{-3/2}\theta$. This mapping is the Helmholtz condition~\cite{Sheppard1993}. For small $\theta$, $a\to\eu^{-(f\theta/w_{\mathrm{ap}})^2}$, so the paraxial waist is $w_0=2f/(kw_{\mathrm{ap}})$. The power in the pupil equals the power~\eqref{eq:power}, which gives $|\mathcal A|=kf|\mathcal A_{\mathrm{ap}}|/(2\pi)$ up to a constant phase. A stop of radius $r_{\max}$ in the pupil cuts the spectrum at $\theta_{\max}=g^{-1}(r_{\max})$ and sets $\mathrm{NA}=n\sin\theta_{\max}$. With the filling factor $f_0=w_{\mathrm{ap}}/r_{\max}$, the aplanatic waist is $w_0=\lambda/(\pi f_0\,\mathrm{NA})$. For $f_0=1$ this is the often quoted $\lambda/(\pi\,\mathrm{NA})$.
+
+\emph{D, COMSOL.} COMSOL~\cite{COMSOL62} offers two Gaussian background fields. The \emph{paraxial approximation} with the focal plane at $z=0$ is Eq.~\eqref{eq:paraxial} with $\iu\to-j$, because COMSOL uses the time dependence $\eu^{+j\omega t}$. The \emph{plane wave expansion} takes the Fourier transform of the Gaussian in the focal plane. It then projects the polarization of each plane wave onto the plane normal to its wavevector. In our notation this is
+\begin{equation}
+\sqrt{\varepsilon}\,\mathbf{E}_\infty=\mathcal A\cos\theta\,\eu^{-(kw_0\sin\theta/2)^2}\,\big[\ort{e}_\sigma-(\ort{e}_\sigma\cdot\ort{k})\,\ort{k}\big],
+\label{eq:comsol}
+\end{equation}
+beam A with the projection rule $c=\cos\theta$. COMSOL sums a finite set of plane waves, so it samples the integral~\eqref{eq:debye}. The documentation does not give the grid of transverse wavevectors or say if it includes $k_\rho>k$.
+
+\emph{E and F, OTT.} OTT~\cite{Nieminen2007,Lenton2020} (class \texttt{BscPmGauss}) finds the coefficients of the vector spherical waves by point matching to a far field. For the Gaussian mode this far field is $\mathbf{E}_\infty\propto\eu^{-g^2(\theta)/g^2(\theta_b)}\,\mathbf p$ with $c=1$ and $\theta_b=\arcsin(\mathrm{NA}/n)$. The mapping is $g=f\tan\theta$ by default (\texttt{tantheta}, beam E) or $g=f\sin\theta$ (\texttt{sintheta}, beam F). The amplitude falls to $1/\eu$ at $\theta_b$. Thus the NA of OTT sets the width of the far field, and it is not a stop. The far field has no energy-conservation factor $A(\theta)$ (Table~\ref{tab:env}). The option \texttt{truncation\_angle} adds a stop, and its default $\pi/2$ means no stop. The default polarization, \texttt{[1 1i]}, is circular. OTT puts the incoming far field near $\theta=\pi$. To compare it with Eq.~\eqref{eq:debye}, replace $\theta$ by $\pi-\theta$.
+
+% ltxgrid loses the skip above this heading when it balances the last page
+\vspace{0.4cm}
+\section{Common limit}
+
+For $\theta\ll1$ every envelope reduces to $\eu^{-(kw_0\theta/2)^2}$ and every rule to $\mathbf p=\ort{e}_\sigma-(\theta/\sqrt2)\,\eu^{\iu\sigma\phi}\,\ort{z}$. In this limit all six beams coincide with the paraxial form~\eqref{eq:paraxial}, with corrections of relative order $\theta_0^2=(2/kw_0)^2$. The leading non-paraxial effect follows from $\nabla\cdot\mathbf E=0$ and is the same for all of them: $E_z\simeq-(2\iu/kw_0^2)(x+\iu\sigma y)E_x$ near the axis in the waist plane, with a relative error of order $(kw_0)^{-2}$. 
+The choice of beam is a statement about the optical system, not about Maxwell's equations.
+
+\bibliography{refs}
+
+\end{document}
