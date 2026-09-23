@@ -11,7 +11,7 @@ equations. It includes the beams that COMSOL and the Optical Tweezers Toolbox
 ## Install
 
 ```bash
-pip install git+https://github.com/toftul/nonparaxial-gaussian
+pip install git+https://github.com/toftul/nonparax
 ```
 
 The package needs Python 3.10 or newer, NumPy 2 and SciPy.
@@ -93,8 +93,9 @@ E = npx.E((a, c), x, 0.0, 0.0, wavelength=1064e-9, w0=0.5e-6, jones=(1, 0), eps_
 ## Polarization
 
 `jones=(Ex, Ey)` is any complex pair. For example, `(1, 0)` is x-polarized,
-`(1, 1j)` has helicity +1 and `(1, -1j)` has helicity −1. The package splits the
-input into the two helicities and adds the two beams (white paper, Eq. (arbitrary)).
+`(1, 1j)` is circular with the handedness σ = +1 and `(1, -1j)` with σ = −1. The
+package splits the input into the two handednesses and adds the two beams
+(white paper, Eq. (arbitrary)).
 
 A radially polarized beam is the sum of two vortex beams (white paper, Sec. "Vortex beams"):
 
@@ -139,7 +140,10 @@ npx.convergence("aplanatic", x, 0.0, 0.0, wavelength=1064e-9, w0=0.5e-6, jones=(
 ## Conventions
 
 - SI units. The fields are complex amplitudes with `exp(-iωt)`, unless `time_convention="+j"`.
-- Helicity basis `e_σ = (x̂ + iσ ŷ)/√2`.
+- Circular basis `e_σ = (x̂ + iσ ŷ)/√2`, with the handedness σ = ±1.
+- A beam with a circular input and `c = 1` (`"aplanatic"`, `"thin_lens"`, `"ott_tan"`,
+  `"ott_sin"`) is a helicity eigenmode with the eigenvalue σ. `"spectrum"` and
+  `"comsol"` have `c ≠ 1` and contain both helicities.
 - The medium is homogeneous and lossless.
 - Evanescent waves are not included, because the beam comes from far away.
 

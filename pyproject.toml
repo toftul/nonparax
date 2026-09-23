@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/toftul/nonparaxial-gaussian"
+Repository = "https://github.com/toftul/nonparax"
 
 [dependency-groups]
 dev = ["pytest>=7"]

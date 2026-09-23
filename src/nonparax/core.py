@@ -6,7 +6,8 @@ Eqs. (bessel), (bessel_H) and the vortex section). The remaining integral over
 the polar angle theta uses fixed Gauss-Legendre quadrature.
 
 Conventions: SI units, time dependence exp(-i omega t) unless
-``time_convention="+j"``, helicity basis e_sigma = (x + i sigma y)/sqrt(2).
+``time_convention="+j"``, circular basis e_sigma = (x + i sigma y)/sqrt(2) with
+the handedness sigma = +-1.
 """
 
 import numbers
@@ -30,8 +31,8 @@ class ConvergenceWarning(UserWarning):
 
 
 # ----------------------------------------------------------------------------- kernel
-def _helicity_fields(a, c, theta, weights, k, sigma, charge, rho, vphi, z, which):
-    """Fields of one helicity, per unit amplitude A, as sqrt(eps)E and sqrt(mu)H.
+def _handedness_fields(a, c, theta, weights, k, sigma, charge, rho, vphi, z, which):
+    """Fields for the input e_sigma of one handedness, per unit amplitude A, as sqrt(eps)E and sqrt(mu)H.
 
     Returns a dict with keys from ``which`` ("E", "H"); each value has shape (3, N).
     With E_inf = A a e^{i l phi} e^{i sigma phi} (u theta_hat + i sigma v phi_hat),
@@ -107,7 +108,7 @@ def _setup(kind, *, wavelength, w0, jones, eps_r, mu_r, P, theta_max, NA_stop, c
         raise ValueError("jones must not be zero")
     ex, ey = jones / jn
     # e = alpha e_+ + beta e_-, white paper Eq. (arbitrary)
-    helicity = {+1: (ex - 1j * ey) / np.sqrt(2), -1: (ex + 1j * ey) / np.sqrt(2)}
+    handedness = {+1: (ex - 1j * ey) / np.sqrt(2), -1: (ex + 1j * ey) / np.sqrt(2)}
 
     n = np.sqrt(eps_r * mu_r)
     if theta_max is not None and NA_stop is not None:
@@ -127,7 +128,7 @@ def _setup(kind, *, wavelength, w0, jones, eps_r, mu_r, P, theta_max, NA_stop, c
     k = 2 * np.pi * n / wavelength
     eps, mu = eps_r * epsilon_0, mu_r * mu_0
     return dict(kind=kind, k=k, kw0=k * w0, eps=eps, mu=mu, P=P, theta_max=theta_max,
-                helicity=helicity, charge=int(charge), time_convention=time_convention)
+                handedness=handedness, charge=int(charge), time_convention=time_convention)
 
 
 def _compute(s, x, y, z, n_theta, which):
@@ -144,10 +145,10 @@ def _compute(s, x, y, z, n_theta, which):
     A = amplitude_from_power(s["P"], s["k"], s["eps"], s["mu"], a, np.sin(theta), weights)
 
     total = {f: np.zeros((3, rho.size), dtype=complex) for f in which}
-    for sigma, amp in s["helicity"].items():
+    for sigma, amp in s["handedness"].items():
         if amp == 0:
             continue
-        part = _helicity_fields(a, c, theta, weights, s["k"], sigma, s["charge"], rho, vphi, zz, which)
+        part = _handedness_fields(a, c, theta, weights, s["k"], sigma, s["charge"], rho, vphi, zz, which)
         for f in which:
             total[f] += amp * part[f]
     scale = {"E": A / np.sqrt(s["eps"]), "H": A / np.sqrt(s["mu"])}
@@ -199,7 +200,7 @@ _DOC = """
         Paraxial waist radius in metres (for OTT's NA use :func:`ott_w0`).
     jones : (complex, complex)
         Input polarization (Ex, Ey) of the paraxial beam; normalized internally.
-        (1, 0) is x-polarized, (1, 1j) has helicity +1.
+        (1, 0) is x-polarized, (1, 1j) is circular with the handedness +1.
     eps_r, mu_r : float
         Relative permittivity and permeability of the lossless medium (real, > 0).
     P : float

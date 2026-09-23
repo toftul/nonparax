@@ -145,9 +145,9 @@ def test_c1_helicity_relation(kind, sigma):
     assert np.max(np.abs(lhs - rhs)) < 1e-12 * np.max(np.abs(rhs))
 
 
-# ------------------------------------------------------------------ 6. linearity in the Jones vector
+# ------------------------------------------------------------------ 6. linearity in the Jones vector (two handednesses)
 @pytest.mark.parametrize("kind", ["spectrum", "comsol"])
-def test_linear_input_is_sum_of_helicities(kind):
+def test_linear_input_is_sum_of_handednesses(kind):
     kw = dict(w0=2.0 / K, **BASE)
     Ex, Hx = npx.EH(kind, *PTS, jones=(1, 0), **kw)
     Ep, Hp = npx.EH(kind, *PTS, jones=(1, 1j), **kw)
