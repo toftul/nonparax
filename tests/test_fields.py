@@ -160,7 +160,7 @@ def test_linear_input_is_sum_of_handednesses(kind):
 def test_time_convention_conjugates():
     kw = dict(w0=2.0 / K, jones=(1, 0.2j), **BASE)
     E1, H1 = npx.EH("thin_lens", *PTS, **kw)
-    E2, H2 = npx.EH("thin_lens", *PTS, time_convention="+j", **kw)
+    E2, H2 = npx.EH("thin_lens", *PTS, time_convention="+iwt", **kw)
     assert np.array_equal(E2, np.conj(E1)) and np.array_equal(H2, np.conj(H1))
 
 
@@ -202,7 +202,7 @@ def test_rotation_to_and_frames_roundtrip():
 @pytest.mark.parametrize("bad", [
     dict(eps_r=2.0 + 0.1j), dict(eps_r=-1.0), dict(mu_r=0.0), dict(jones=(0, 0)),
     dict(theta_max=1.0, NA_stop=0.5), dict(NA_stop=2.0), dict(theta_max=2.0),
-    dict(charge=0.5), dict(time_convention="+i"), dict(n_theta=0), dict(P=-1.0),
+    dict(charge=0.5), dict(time_convention="+j"), dict(n_theta=0), dict(P=-1.0),
 ])
 def test_bad_inputs_raise(bad):
     kw = dict(w0=1.0, jones=(1, 0), **BASE)

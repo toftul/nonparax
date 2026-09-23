@@ -33,6 +33,20 @@ Ex, Ey, Ez = E                              # V/m, each of shape (201,)
 intensity = np.sum(np.abs(E) ** 2, axis=0)
 ```
 
+**Numerical aperture.** The NA is not an input of `EH`, because the waist `w0`
+sets the beam. For an objective with the NA and the filling factor
+`f0 = w_ap / r_max` (pupil 1/e radius over stop radius), the aplanatic beam has
+`w0 = wavelength / (pi * f0 * NA)`, and `NA_stop=NA` adds the stop:
+
+```python
+NA, f0 = 1.2, 1.0
+w0 = 1064e-9 / (np.pi * f0 * NA)
+E, H = npx.EH("aplanatic", x, 0.0, 0.0, wavelength=1064e-9, w0=w0, NA_stop=NA,
+              jones=(1, 0), eps_r=1.33**2)
+```
+
+In OTT the NA is not a stop but sets the beam width; see `npx.ott_w0` below.
+
 `E` is in V/m and `H` is in A/m. Both have the shape `(3, *shape)`, where
 `shape` is the broadcast shape of `x`, `y` and `z`. The beam travels along `+z`,
 and its focus is at the origin. `npx.E(...)` and `npx.H(...)` take the same
@@ -86,7 +100,7 @@ E = npx.E((a, c), x, 0.0, 0.0, wavelength=1064e-9, w0=0.5e-6, jones=(1, 0), eps_
 | `theta_max`       | stop, as the largest polar angle in rad                          | π/2       |
 | `NA_stop`         | stop, as `NA = n sin(theta_max)`; give at most one of the two   | none      |
 | `charge`          | integer vortex charge ℓ, the amplitude gains `exp(iℓφ)`          | 0         |
-| `time_convention` | `"-i"` for `exp(-iωt)`, `"+j"` for `exp(+jωt)` (COMSOL)          | `"-i"`    |
+| `time_convention` | `"-iwt"` for `exp(-iωt)`, `"+iwt"` for `exp(+iωt)` (COMSOL uses `exp(+jωt)`) | `"-iwt"`  |
 | `n_theta`         | number of Gauss–Legendre nodes in θ                              | 200       |
 | `check`, `rtol`   | warn if doubling `n_theta` changes the fields by more than `rtol` | off, 1e-6 |
 
@@ -139,7 +153,7 @@ npx.convergence("aplanatic", x, 0.0, 0.0, wavelength=1064e-9, w0=0.5e-6, jones=(
 
 ## Conventions
 
-- SI units. The fields are complex amplitudes with `exp(-iωt)`, unless `time_convention="+j"`.
+- SI units. The fields are complex amplitudes with `exp(-iωt)`, unless `time_convention="+iwt"`.
 - Circular basis `e_σ = (x̂ + iσ ŷ)/√2`, with the handedness σ = ±1.
 - A beam with a circular input and `c = 1` (`"aplanatic"`, `"thin_lens"`, `"ott_tan"`,
   `"ott_sin"`) is a helicity eigenmode with the eigenvalue σ. `"spectrum"` and

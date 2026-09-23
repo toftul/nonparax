@@ -6,7 +6,7 @@ Eqs. (bessel), (bessel_H) and the vortex section). The remaining integral over
 the polar angle theta uses fixed Gauss-Legendre quadrature.
 
 Conventions: SI units, time dependence exp(-i omega t) unless
-``time_convention="+j"``, circular basis e_sigma = (x + i sigma y)/sqrt(2) with
+``time_convention="+iwt"``, circular basis e_sigma = (x + i sigma y)/sqrt(2) with
 the handedness sigma = +-1.
 """
 
@@ -95,8 +95,8 @@ def _setup(kind, *, wavelength, w0, jones, eps_r, mu_r, P, theta_max, NA_stop, c
     P = float(P)
     if isinstance(charge, bool) or not isinstance(charge, numbers.Integral):
         raise ValueError(f"charge must be an integer, got {charge!r}")
-    if time_convention not in ("-i", "+j"):
-        raise ValueError('time_convention must be "-i" (exp(-i w t)) or "+j" (exp(+j w t))')
+    if time_convention not in ("-iwt", "+iwt"):
+        raise ValueError('time_convention must be "-iwt" (exp(-i w t)) or "+iwt" (exp(+i w t))')
     if isinstance(n_theta, bool) or not isinstance(n_theta, numbers.Integral) or n_theta < 1:
         raise ValueError(f"n_theta must be a positive integer, got {n_theta!r}")
 
@@ -155,7 +155,7 @@ def _compute(s, x, y, z, n_theta, which):
     result = {}
     for f in which:
         F = (scale[f] * total[f]).reshape((3,) + shape)
-        result[f] = np.conj(F) if s["time_convention"] == "+j" else F
+        result[f] = np.conj(F) if s["time_convention"] == "+iwt" else F
     return result
 
 
@@ -165,7 +165,7 @@ def _rel_change(F1, F2):
 
 
 def _run(kind, x, y, z, which, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
-         theta_max=None, NA_stop=None, charge=0, time_convention="-i", n_theta=200,
+         theta_max=None, NA_stop=None, charge=0, time_convention="-iwt", n_theta=200,
          check=False, rtol=1e-6):
     s = _setup(kind, wavelength=wavelength, w0=w0, jones=jones, eps_r=eps_r, mu_r=mu_r, P=P,
                theta_max=theta_max, NA_stop=NA_stop, charge=charge,
@@ -210,8 +210,9 @@ _DOC = """
         Give at most one; the default is theta_max = pi/2 (no stop).
     charge : int
         Vortex charge l; the plane-wave amplitude gains exp(i l phi).
-    time_convention : {"-i", "+j"}
-        "-i": exp(-i omega t) (white paper). "+j": exp(+j omega t) as in COMSOL;
+    time_convention : {"-iwt", "+iwt"}
+        "-iwt": exp(-i omega t) (white paper). "+iwt": exp(+i omega t), which is
+        COMSOL's exp(+j omega t);
         the result is the complex conjugate.
     n_theta : int
         Number of Gauss-Legendre nodes in theta.
@@ -224,7 +225,7 @@ _DOC = """
 
 
 def EH(kind, x, y, z, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
-       theta_max=None, NA_stop=None, charge=0, time_convention="-i", n_theta=200,
+       theta_max=None, NA_stop=None, charge=0, time_convention="-iwt", n_theta=200,
        check=False, rtol=1e-6):
     """Electric field E [V/m] and magnetic field H [A/m], each of shape (3, *shape)."""
     res = _run(kind, x, y, z, ("E", "H"), wavelength=wavelength, w0=w0, jones=jones,
@@ -235,7 +236,7 @@ def EH(kind, x, y, z, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
 
 
 def E(kind, x, y, z, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
-      theta_max=None, NA_stop=None, charge=0, time_convention="-i", n_theta=200,
+      theta_max=None, NA_stop=None, charge=0, time_convention="-iwt", n_theta=200,
       check=False, rtol=1e-6):
     """Electric field E [V/m] of shape (3, *shape). Same arguments as :func:`EH`."""
     return _run(kind, x, y, z, ("E",), wavelength=wavelength, w0=w0, jones=jones,
@@ -245,7 +246,7 @@ def E(kind, x, y, z, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
 
 
 def H(kind, x, y, z, *, wavelength, w0, jones, eps_r=1.0, mu_r=1.0, P=1.0,
-      theta_max=None, NA_stop=None, charge=0, time_convention="-i", n_theta=200,
+      theta_max=None, NA_stop=None, charge=0, time_convention="-iwt", n_theta=200,
       check=False, rtol=1e-6):
     """Magnetic field H [A/m] of shape (3, *shape). Same arguments as :func:`EH`."""
     return _run(kind, x, y, z, ("H",), wavelength=wavelength, w0=w0, jones=jones,
