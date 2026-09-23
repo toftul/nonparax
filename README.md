@@ -40,14 +40,14 @@ arguments and return one field.
 
 ## The six beams
 
-| `kind`        | white paper | construction                                    | parameters        |
-|---------------|-------------|-------------------------------------------------|-------------------|
-| `"spectrum"`  | A           | Gaussian angular spectrum, no lens              | `w0`              |
-| `"aplanatic"` | B           | Gaussian pupil, aplanatic objective (sine condition) | `w0` (+ stop) |
-| `"thin_lens"` | C           | Gaussian pupil, thin lens (`r = f tan θ`)        | `w0` (+ stop)     |
-| `"comsol"`    | D           | COMSOL "plane wave expansion"                   | `w0`              |
-| `"ott_tan"`   | E           | OTT `BscPmGauss`, `angular_scaling="tantheta"`  | `w0` or NA        |
-| `"ott_sin"`   | F           | OTT `BscPmGauss`, `angular_scaling="sintheta"`  | `w0` or NA        |
+| `kind` | white paper | construction | parameters | illustration |
+|---|---|---|---|---|
+| `"spectrum"` | A | Gaussian angular spectrum, no lens | `w0` | <img src="docs/img/beam_A.png" width="220"> |
+| `"aplanatic"` | B | Gaussian pupil, aplanatic objective (sine condition) | `w0` (+ stop) | <img src="docs/img/beam_B.png" width="220"> |
+| `"thin_lens"` | C | Gaussian pupil, thin lens (`r = f tan θ`) | `w0` (+ stop) | <img src="docs/img/beam_C.png" width="220"> |
+| `"comsol"` | D | COMSOL "plane wave expansion": beam A with the projection rule | `w0` | <img src="docs/img/beam_D.png" width="220"> |
+| `"ott_tan"` | E | OTT `BscPmGauss`, `angular_scaling="tantheta"`, no energy-conservation factor | `w0` or NA | <img src="docs/img/beam_E.png" width="220"> |
+| `"ott_sin"` | F | OTT `BscPmGauss`, `angular_scaling="sintheta"`, no energy-conservation factor | `w0` or NA | <img src="docs/img/beam_F.png" width="220"> |
 
 All six agree in the paraxial limit, `k w0 >> 2`, and differ when the beam is
 tightly focused. To compare them, loop over `npx.KINDS`:

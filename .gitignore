@@ -47,3 +47,6 @@ htmlcov/
 .idea/
 *~
 *.swp
+
+# README illustrations: keep the PNGs, not the build
+docs/img/beams.pdf
