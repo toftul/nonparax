@@ -72,7 +72,9 @@ Beyond the paraxial limit the name ``Gaussian beam'' does not define a unique fi
 
 \section{Paraxial Gaussian beam}
 
-The field has the time dependence $\eu^{-\iu\omega t}$. We use SI units. The host medium is homogeneous and lossless. Its absolute permittivity is $\varepsilon$ and its absolute permeability is $\mu$. The refractive index is $n=c\sqrt{\varepsilon\mu}$ and the wavenumber is $k=\omega\sqrt{\varepsilon\mu}=2\pi n/\lambda$, with $\lambda$ the vacuum wavelength. The beam propagates along $z$ and has the circular polarization $\ort{e}_\sigma=(\ort{x}+\iu\sigma\ort{y})/\sqrt2$ with the helicity $\sigma=\pm1$. A linearly polarized beam is a sum of the two helicities, for example $\ort{x}=(\ort{e}_++\ort{e}_-)/\sqrt2$. We write the position as $\mathbf r=(\rho,\varphi,z)$ in cylindrical coordinates, with $\rho=\sqrt{x^2+y^2}$ and the azimuth $\varphi$. The symbol $\phi$ is kept for the azimuth of the wavevector. We use the symmetric fields $\sqrt{\varepsilon}\,\mathbf E$ and $\sqrt{\mu}\,\mathbf H$, which obey
+The field has the time dependence $\eu^{-\iu\omega t}$. We use SI units. The host medium is homogeneous and lossless. Its absolute permittivity is $\varepsilon$ and its absolute permeability is $\mu$. The refractive index is $n=c\sqrt{\varepsilon\mu}$ and the wavenumber is $k=\omega\sqrt{\varepsilon\mu}=2\pi n/\lambda$, with $\lambda$ the vacuum wavelength. The beam propagates along $z$ and has the circular polarization $\ort{e}_\sigma=(\ort{x}+\iu\sigma\ort{y})/\sqrt2$ with the handedness $\sigma=\pm1$. 
+%A linearly polarized beam is a sum of the two handednesses, for example $\ort{x}=(\ort{e}_++\ort{e}_-)/\sqrt2$. 
+We write the position as $\mathbf r=(\rho,\varphi,z)$ in cylindrical coordinates, with $\rho=\sqrt{x^2+y^2}$ and the azimuth $\varphi$. The symbol $\phi$ is kept for the azimuth of the wavevector. We use the symmetric fields $\sqrt{\varepsilon}\,\mathbf E$ and $\sqrt{\mu}\,\mathbf H$, which obey
 \begin{equation}
 	\sqrt{\mu}\,\mathbf H=\ort{k}\times\sqrt{\varepsilon}\,\mathbf E
 	\label{eq:pw}
@@ -166,7 +168,7 @@ where
 \ort{\theta}&= \cos\phi \cos\theta \ort{x} + \sin\phi \cos\theta \ort{y} -\sin\theta \ort{z},\\
 \ort{\phi}&= -\sin\phi \ort{x} + \cos\phi \ort{y}
 \end{align*}
-are the meridional and azimuthal unit vectors. With $\ort{k}$ they form the right-handed triad $\ort{\theta}\times\ort{\phi}=\ort{k}$. At $\theta=0$ the pair $(\ort{\theta},\ort{\phi})$ is $(\ort{x},\ort{y})$ turned by $\phi$ about $z$. The phase $\eu^{\iu\sigma\phi}$ cancels this turn, so that $\mathbf p(0,\phi)=\ort{e}_\sigma$ for every $\phi$. The real weight $c(\theta)$ is the ratio of the meridional and the azimuthal components of $\mathbf p$, with $c(0)=1$. A real $c$ means that the system adds no phase between these two components. The rules differ only in $c(\theta)$ (Table~\ref{tab:env}). For $c=1$ each plane wave is circularly polarized. Figure~\ref{fig:rule} shows the direction of $\mathbf p$ and the roles of $c$.
+are the meridional and azimuthal unit vectors. With $\ort{k}$ they form the right-handed triad $\ort{\theta}\times\ort{\phi}=\ort{k}$. At $\theta=0$ the pair $(\ort{\theta},\ort{\phi})$ is $(\ort{x},\ort{y})$ turned by $\phi$ about $z$. The phase $\eu^{\iu\sigma\phi}$ cancels this turn, so that $\mathbf p(0,\phi)=\ort{e}_\sigma$ for every $\phi$. The real weight $c(\theta)$ is the ratio of the meridional and the azimuthal components of $\mathbf p$, with $c(0)=1$. A real $c$ means that the system adds no phase between these two components. The rules differ only in $c(\theta)$ (Table~\ref{tab:env}). For $c=1$ each plane wave is circularly polarized and has the helicity $\sigma$. Figure~\ref{fig:rule} shows the direction of $\mathbf p$ and the roles of $c$.
 
 The integral over $\phi$ in Eq.~\eqref{eq:debye} gives Bessel functions. In the cylindrical coordinates $(\rho,\varphi,z)$ of $\mathbf r$,
 \begin{align}
@@ -185,7 +187,7 @@ The integral over $\phi$ in Eq.~\eqref{eq:debye} gives Bessel functions. In the 
 -\iu\sin\theta\,J_1\,\eu^{\iu\sigma\varphi}\,\ort{z}\Big],
 \label{eq:bessel_H}
 \end{align}
-where $J_m=J_m(k\rho\sin\theta)$ and $\ort{e}_{-\sigma}=\ort{e}_\sigma^*$. For $c=1$, $\sqrt{\mu}\,\mathbf H=-\iu\sigma\sqrt{\varepsilon}\,\mathbf E$. Each term in Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H} has the total angular momentum $\sigma$ along $z$. On the axis only $J_0$ is not zero, and the field is along $\ort{e}_\sigma$.
+where $J_m=J_m(k\rho\sin\theta)$ and $\ort{e}_{-\sigma}=\ort{e}_\sigma^*$. For $c=1$, $\sqrt{\mu}\,\mathbf H=-\iu\sigma\sqrt{\varepsilon}\,\mathbf E$, and the beam is a helicity eigenmode with the eigenvalue $\sigma$~\cite{FernandezCorbaton2012}. For $c\neq1$ it contains both helicities. Let $\hat J_z$ be the $z$ component of the total angular momentum operator, the generator of rotations about $z$. It turns both the position and the direction of the field. A field is an eigenmode of $\hat J_z$ with the eigenvalue $j$ if a rotation by the angle $\alpha$ about $z$ multiplies it by $\eu^{-\iu j\alpha}$. Each term of Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H} obeys this with $j=\sigma$, so the beam is an eigenmode of $\hat J_z$ with the eigenvalue $\sigma$. On the axis only $J_0$ is not zero, and the field is along $\ort{e}_\sigma$.
 
 The amplitude $\mathcal A$ is not the field at the focus. In the paraxial limit, the focal field of Eq.~\eqref{eq:bessel} is $\mathcal A_0\ort{e}_\sigma$ with $\mathcal A_0=4\pi\mathcal A/(kw_0)^2$. Since $|\mathbf p|=1$, the power of the beam is
 \begin{equation}
@@ -194,7 +196,7 @@ P =  \int \limits_{x,y,z=0} \frac{1}{2} \Re \left( \mathbf{E} \times \mathbf{H} 
 \end{equation}
 
 
-The two helicities form a basis, so every input polarization is $\ort{e}=\alpha\,\ort{e}_++\beta\,\ort{e}_-$ with $|\alpha|^2+|\beta|^2=1$. Maxwell's equations are linear, so this input gives the beam
+The two circular polarizations $\ort{e}_\pm$ form a basis, so every input polarization is $\ort{e}=\alpha\,\ort{e}_++\beta\,\ort{e}_-$ with $|\alpha|^2+|\beta|^2=1$. Maxwell's equations are linear, so this input gives the beam
 \begin{equation}
 	\begin{split}
 		\mathbf E&=\alpha\,\mathbf E^{(+)}+\beta\,\mathbf E^{(-)}, \\
@@ -202,13 +204,13 @@ The two helicities form a basis, so every input polarization is $\ort{e}=\alpha\
 	\end{split}
 \label{eq:arbitrary}
 \end{equation}
-where $\mathbf E^{(\sigma)}$ and $\mathbf H^{(\sigma)}$ is the beam with the helicity $\sigma$ and the same $a$ and $c$. In practice, one complex number $m$ fixes the input, $\ort{e}=(\ort{x}+m\,\ort{y})/\sqrt{1+|m|^2}$. Then
+where $\mathbf E^{(\sigma)}$ and $\mathbf H^{(\sigma)}$ is the beam with the handedness $\sigma$ and the same $a$ and $c$. In practice, one complex number $m$ fixes the input, $\ort{e}=(\ort{x}+m\,\ort{y})/\sqrt{1+|m|^2}$. Then
 \begin{equation}
 \alpha=\frac{1-\iu m}{\sqrt{2(1+|m|^2)}},\qquad
 \beta=\frac{1+\iu m}{\sqrt{2(1+|m|^2)}}.
 \label{eq:m}
 \end{equation}
-For example, $m=0$ gives $\ort{x}$, a real $m$ gives linear polarization at the angle $\arctan m$ to $x$, and $m=\iu\sigma$ gives $\ort{e}_\sigma$. The input $\ort{y}$ is the limit $m\to\infty$. The recipe needs the same rule $c(\theta)$ for both helicities. All rules in this note obey this, because none of them distinguishes the two helicities.
+For example, $m=0$ gives $\ort{x}$, a real $m$ gives linear polarization at the angle $\arctan m$ to $x$, and $m=\iu\sigma$ gives $\ort{e}_\sigma$. The input $\ort{y}$ is the limit $m\to\infty$. The recipe needs the same rule $c(\theta)$ for both handednesses. All rules in this note obey this, because none of them distinguishes the two handednesses.
 
 \begin{figure}[t]
 \centering
@@ -233,7 +235,7 @@ For example, $m=0$ gives $\ort{x}$, a real $m$ gives linear polarization at the 
 
 \section{Six beams}
 
-Table~\ref{tab:env} lists six beams, A--F, with the same paraxial waist $w_0$. Beams A--C come from three physical constructions (Fig.~\ref{fig:constructions}). Beams D--F are the beams of COMSOL and Optical Tweezer Toolbox (OTT)~\cite{Lenton2020}.
+Table~\ref{tab:env} lists six beams, A--F, with the same paraxial waist $w_0$. Beams A--C come from three physical constructions (Fig.~\ref{fig:constructions}). Beams D--F are the beams of COMSOL and the Optical Tweezers Toolbox (OTT)~\cite{Lenton2020}.
 
 
 \begin{figure*}[t]
@@ -352,18 +354,18 @@ Table~\ref{tab:env} lists six beams, A--F, with the same paraxial waist $w_0$. B
 
 
 
-\emph{A, Gaussian spectrum} (Fig.~\ref{fig:constructions}A, no lens). The Gaussian is a function of the transverse wavevector $k_\rho=k\sin\theta$. The transverse part of $\sqrt{\varepsilon}\,\mathbf{E}_\infty$ is $\mathcal A\cos\theta\,\eu^{-(k_\rho w_0/2)^2}\,\ort{e}_\sigma$. The solid angle is $\dd\Omega=\dd^2k_\rho/(k^2\cos\theta)$, so the factor $\cos\theta$ cancels. At $z=0$, Eq.~\eqref{eq:debye} is then the Fourier integral of $\eu^{-(k_\rho w_0/2)^2}$, which is proportional to $\eu^{-\rho^2/w_0^2}$. Thus the transverse field is exactly Gaussian in the focal plane, and $E_z$ is not. The only error is the evanescent part $k_\rho>k$, of relative weight $\eu^{-(kw_0/2)^2}$, which Eq.~\eqref{eq:debye} does not contain. The transverse part is along $\ort{e}_\sigma$ only for $c=1/\cos\theta$. For numerics, write this rule as $\mathbf p=\eu^{\iu\sigma\phi}(\ort{\theta}+\iu\sigma\cos\theta\,\ort{\phi})/\sqrt{1+\cos^2\theta}$, which stays finite at $\theta=\pi/2$. With $|\mathbf p|=1$, this rule gives the envelope $a$ of Table~\ref{tab:env}. A lens with the rule $c=1$ cannot make this field.
+\emph{A, Gaussian spectrum} (Fig.~\ref{fig:constructions}A, no lens). The Gaussian is a function of the transverse wavevector $k_\rho=k\sin\theta$. The transverse part of $\sqrt{\varepsilon}\,\mathbf{E}_\infty$ is $\mathcal A\cos\theta\,\eu^{-(k_\rho w_0/2)^2}\,\ort{e}_\sigma$. The solid angle is $\dd\Omega=\dd^2k_\rho/(k^2\cos\theta)$, so the factor $\cos\theta$ cancels. At $z=0$, Eq.~\eqref{eq:debye} is then the Fourier integral of $\eu^{-(k_\rho w_0/2)^2}$, which is proportional to $\eu^{-\rho^2/w_0^2}$. Thus the transverse field is exactly Gaussian in the focal plane, and $E_z$ is not. The only error is the evanescent part $k_\rho>k$, of relative weight $\eu^{-(kw_0/2)^2}$, which Eq.~\eqref{eq:debye} does not contain. The transverse part is along $\ort{e}_\sigma$ only for $c=1/\cos\theta$. For numerics, write this rule as $\mathbf p=\eu^{\iu\sigma\phi}(\ort{\theta}+\iu\sigma\cos\theta\,\ort{\phi})/\sqrt{1+\cos^2\theta}$, which stays finite at $\theta=\pi/2$. With $|\mathbf p|=1$, this rule gives the envelope $a$ of Table~\ref{tab:env}. A lens with the rule $c=1$ cannot make this field. Since $c\neq1$, beam A is not a helicity eigenmode.
 
-\emph{B and C, lenses} (Fig.~\ref{fig:constructions}B, C). The field in the pupil of a lens with the focal length $f$ is $\sqrt{\varepsilon}\,\mathbf E_{\mathrm{ap}}=\mathcal A_{\mathrm{ap}}\,\ort{e}_\sigma\,\eu^{-r^2/w_{\mathrm{ap}}^2}$, where $r$ is the distance from the axis. The lens sends the pupil ring at $r$ to the direction $\theta$ at the focus. This ray mapping $r=g(\theta)$ is the only difference between beams B and C. Each pupil ring and its band of directions carry the same power. This gives the energy-conservation factor $A(\theta)=\sqrt{g\,g'/(f^2\sin\theta)}$ and the envelope $a\propto\eu^{-g^2/w_{\mathrm{ap}}^2}A(\theta)$~\cite{Novotny2012}. The lens turns the field in the meridional plane by $\theta$. This is the Richards--Wolf rule $c=1$~\cite{Richards1959}. An aplanatic objective obeys the sine condition, so $g=f\sin\theta$ and $A=\cos^{1/2}\theta$. A thin lens bends the rays at a plane at the distance $f$ from the focus, so $g=f\tan\theta$ and $A=\cos^{-3/2}\theta$. This mapping is the Helmholtz condition~\cite{Sheppard1993}. For small $\theta$, $a\to\eu^{-(f\theta/w_{\mathrm{ap}})^2}$, so the paraxial waist is $w_0=2f/(kw_{\mathrm{ap}})$. The power in the pupil equals the power~\eqref{eq:power}, which gives $|\mathcal A|=kf|\mathcal A_{\mathrm{ap}}|/(2\pi)$ up to a constant phase. A stop of radius $r_{\max}$ in the pupil cuts the spectrum at $\theta_{\max}=g^{-1}(r_{\max})$ and sets $\mathrm{NA}=n\sin\theta_{\max}$. With the filling factor $f_0=w_{\mathrm{ap}}/r_{\max}$, the aplanatic waist is $w_0=\lambda/(\pi f_0\,\mathrm{NA})$. For $f_0=1$ this is the often quoted $\lambda/(\pi\,\mathrm{NA})$.
+\emph{B and C, lenses} (Fig.~\ref{fig:constructions}B, C). The field in the pupil of a lens with the focal length $f$ is $\sqrt{\varepsilon}\,\mathbf E_{\mathrm{ap}}=\mathcal A_{\mathrm{ap}}\,\ort{e}_\sigma\,\eu^{-r^2/w_{\mathrm{ap}}^2}$, where $r$ is the distance from the axis. The lens sends the pupil ring at $r$ to the direction $\theta$ at the focus. This ray mapping $r=g(\theta)$ is the only difference between beams B and C. Each pupil ring and its band of directions carry the same power. This gives the energy-conservation factor $A(\theta)=\sqrt{g\,g'/(f^2\sin\theta)}$ and the envelope $a\propto\eu^{-g^2/w_{\mathrm{ap}}^2}A(\theta)$~\cite{Novotny2012}. The lens turns the field in the meridional plane by $\theta$. This is the Richards--Wolf rule $c=1$~\cite{Richards1959}. Beams B and C are therefore helicity eigenmodes. An aplanatic objective obeys the sine condition, so $g=f\sin\theta$ and $A=\cos^{1/2}\theta$. A thin lens bends the rays at a plane at the distance $f$ from the focus, so $g=f\tan\theta$ and $A=\cos^{-3/2}\theta$. This mapping is the Helmholtz condition~\cite{Sheppard1993}. For small $\theta$, $a\to\eu^{-(f\theta/w_{\mathrm{ap}})^2}$, so the paraxial waist is $w_0=2f/(kw_{\mathrm{ap}})$. The power in the pupil equals the power~\eqref{eq:power}, which gives $|\mathcal A|=kf|\mathcal A_{\mathrm{ap}}|/(2\pi)$ up to a constant phase. A stop of radius $r_{\max}$ in the pupil cuts the spectrum at $\theta_{\max}=g^{-1}(r_{\max})$ and sets $\mathrm{NA}=n\sin\theta_{\max}$. With the filling factor $f_0=w_{\mathrm{ap}}/r_{\max}$, the aplanatic waist is $w_0=\lambda/(\pi f_0\,\mathrm{NA})$. For $f_0=1$ this is the often quoted $\lambda/(\pi\,\mathrm{NA})$.
 
 \emph{D, COMSOL.} COMSOL~\cite{COMSOL62} offers two Gaussian background fields. The \emph{paraxial approximation} with the focal plane at $z=0$ is Eq.~\eqref{eq:paraxial} with $\iu\to-j$, because COMSOL uses the time dependence $\eu^{+j\omega t}$. The \emph{plane wave expansion} takes the Fourier transform of the Gaussian in the focal plane. It then projects the polarization of each plane wave onto the plane normal to its wavevector. In our notation this is
 \begin{equation}
 \sqrt{\varepsilon}\,\mathbf{E}_\infty=\mathcal A\cos\theta\,\eu^{-(kw_0\sin\theta/2)^2}\,\big[\ort{e}_\sigma-(\ort{e}_\sigma\cdot\ort{k})\,\ort{k}\big],
 \label{eq:comsol}
 \end{equation}
-beam A with the projection rule $c=\cos\theta$. COMSOL sums a finite set of plane waves, so it samples the integral~\eqref{eq:debye}. The documentation does not give the grid of transverse wavevectors or say if it includes $k_\rho>k$.
+beam A with the projection rule $c=\cos\theta$. Like beam A, it is not a helicity eigenmode. COMSOL sums a finite set of plane waves, so it samples the integral~\eqref{eq:debye}. The documentation does not give the grid of transverse wavevectors or say if it includes $k_\rho>k$.
 
-\emph{E and F, OTT.} OTT~\cite{Nieminen2007,Lenton2020} (class \texttt{BscPmGauss}) finds the coefficients of the vector spherical waves by point matching to a far field. For the Gaussian mode this far field is $\mathbf{E}_\infty\propto\eu^{-g^2(\theta)/g^2(\theta_b)}\,\mathbf p$ with $c=1$ and $\theta_b=\arcsin(\mathrm{NA}/n)$. The mapping is $g=f\tan\theta$ by default (\texttt{tantheta}, beam E) or $g=f\sin\theta$ (\texttt{sintheta}, beam F). The amplitude falls to $1/\eu$ at $\theta_b$. Thus the NA of OTT sets the width of the far field, and it is not a stop. The far field has no energy-conservation factor $A(\theta)$ (Table~\ref{tab:env}). The option \texttt{truncation\_angle} adds a stop, and its default $\pi/2$ means no stop. The default polarization, \texttt{[1 1i]}, is circular. OTT puts the incoming far field near $\theta=\pi$. To compare it with Eq.~\eqref{eq:debye}, replace $\theta$ by $\pi-\theta$.
+\emph{E and F, OTT.} OTT~\cite{Nieminen2007,Lenton2020} (class \texttt{BscPmGauss}) finds the coefficients of the vector spherical waves by point matching to a far field. For the Gaussian mode this far field is $\mathbf{E}_\infty\propto\eu^{-g^2(\theta)/g^2(\theta_b)}\,\mathbf p$ with $c=1$ and $\theta_b=\arcsin(\mathrm{NA}/n)$. The mapping is $g=f\tan\theta$ by default (\texttt{tantheta}, beam E) or $g=f\sin\theta$ (\texttt{sintheta}, beam F). The amplitude falls to $1/\eu$ at $\theta_b$. Thus the NA of OTT sets the width of the far field, and it is not a stop. The far field has no energy-conservation factor $A(\theta)$ (Table~\ref{tab:env}). The option \texttt{truncation\_angle} adds a stop, and its default $\pi/2$ means no stop. The default polarization, \texttt{[1 1i]}, is circular, so beams E and F are helicity eigenmodes. OTT puts the incoming far field near $\theta=\pi$. To compare it with Eq.~\eqref{eq:debye}, replace $\theta$ by $\pi-\theta$.
 
 \section{Vortex beams}
 \label{sec:vortex}
@@ -373,7 +375,7 @@ A beam with the integer vortex charge $\ell$ has the plane-wave amplitude
 \sqrt{\varepsilon}\,\mathbf{E}_\infty=\mathcal A\,a(\theta)\,\eu^{\iu\ell\phi}\,\mathbf p,
 \label{eq:vortex}
 \end{equation}
-with $\mathbf p$ from Eq.~\eqref{eq:rule}. The beam stays symmetric about $z$, and its total angular momentum along $z$ is $\sigma+\ell$. The power~\eqref{eq:power} does not change, because $|\eu^{\iu\ell\phi}\mathbf p|=1$. The integral over $\phi$ uses $\int_0^{2\pi}\eu^{\iu m\phi}\eu^{\iu x\cos(\phi-\varphi)}\dd\phi=2\pi\iu^mJ_m(x)\,\eu^{\iu m\varphi}$. The fields are
+with $\mathbf p$ from Eq.~\eqref{eq:rule}. The beam is an eigenmode of $\hat J_z$ with the eigenvalue $\sigma+\ell$, and its helicity is the same as for $\ell=0$~\cite{ZambranaPuyalto2012}. The power~\eqref{eq:power} does not change, because $|\eu^{\iu\ell\phi}\mathbf p|=1$. The integral over $\phi$ uses $\int_0^{2\pi}\eu^{\iu m\phi}\eu^{\iu x\cos(\phi-\varphi)}\dd\phi=2\pi\iu^mJ_m(x)\,\eu^{\iu m\varphi}$. The fields are
 \begin{align}
 \sqrt{\varepsilon}\,\mathbf E(\mathbf r)&=2\pi\mathcal A\int \limits_0^{\theta_{\max}}\dd\theta\,\frac{a\sin\theta\,\eu^{\iu kz\cos\theta}}{\sqrt{1+c^2}}
 \nonumber\\&\quad\times
@@ -394,9 +396,9 @@ with $\mathbf p$ from Eq.~\eqref{eq:rule}. The beam stays symmetric about $z$, a
 -\sin\theta\,\iu^{\ell+\sigma}J_{\ell+\sigma}\,\eu^{\iu(\ell+\sigma)\varphi}\,\ort{z}\Big],
 \label{eq:vortex_H}
 \end{align}
-with $J_m=J_m(k\rho\sin\theta)$. For $\ell=0$, $J_{-m}=(-1)^mJ_m$ reduces these to Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H}. Each term carries the total angular momentum $\sigma+\ell$: spin $\sigma$, $-\sigma$ and $0$ with orbital $\ell$, $\ell+2\sigma$ and $\ell+\sigma$. Only $J_0$ is not zero on the axis, so the field on the axis vanishes unless $\ell\in\{0,-\sigma,-2\sigma\}$.
+with $J_m=J_m(k\rho\sin\theta)$. For $\ell=0$, $J_{-m}=(-1)^mJ_m$ reduces these to Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H}. Only $J_0$ is not zero on the axis, so the field on the axis vanishes unless $\ell\in\{0,-\sigma,-2\sigma\}$.
 
-Two helicities with opposite charges give cylindrical vector beams. The pupil vectors are $\ort{\rho}=(\eu^{-\iu\phi}\ort{e}_++\eu^{\iu\phi}\ort{e}_-)/\sqrt2$ and $\ort{\phi}=-\iu(\eu^{-\iu\phi}\ort{e}_+-\eu^{\iu\phi}\ort{e}_-)/\sqrt2$. A radially polarized beam is therefore the sum of $(\sigma,\ell)=(+1,-1)$ and $(-1,+1)$ with equal weights, and an azimuthally polarized beam is their difference times $-\iu$. Both have the total angular momentum $0$.
+Two handednesses with opposite charges give cylindrical vector beams. The pupil vectors are $\ort{\rho}=(\eu^{-\iu\phi}\ort{e}_++\eu^{\iu\phi}\ort{e}_-)/\sqrt2$ and $\ort{\phi}=-\iu(\eu^{-\iu\phi}\ort{e}_+-\eu^{\iu\phi}\ort{e}_-)/\sqrt2$. A radially polarized beam is therefore the sum of $(\sigma,\ell)=(+1,-1)$ and $(-1,+1)$ with equal weights, and an azimuthally polarized beam is their difference times $-\iu$. Both are eigenmodes of $\hat J_z$ with the eigenvalue $0$. Neither is a helicity eigenmode.
 
 % ltxgrid loses the skip above this heading when it balances the last page
 \vspace{0.4cm}
