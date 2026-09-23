@@ -365,6 +365,39 @@ beam A with the projection rule $c=\cos\theta$. COMSOL sums a finite set of plan
 
 \emph{E and F, OTT.} OTT~\cite{Nieminen2007,Lenton2020} (class \texttt{BscPmGauss}) finds the coefficients of the vector spherical waves by point matching to a far field. For the Gaussian mode this far field is $\mathbf{E}_\infty\propto\eu^{-g^2(\theta)/g^2(\theta_b)}\,\mathbf p$ with $c=1$ and $\theta_b=\arcsin(\mathrm{NA}/n)$. The mapping is $g=f\tan\theta$ by default (\texttt{tantheta}, beam E) or $g=f\sin\theta$ (\texttt{sintheta}, beam F). The amplitude falls to $1/\eu$ at $\theta_b$. Thus the NA of OTT sets the width of the far field, and it is not a stop. The far field has no energy-conservation factor $A(\theta)$ (Table~\ref{tab:env}). The option \texttt{truncation\_angle} adds a stop, and its default $\pi/2$ means no stop. The default polarization, \texttt{[1 1i]}, is circular. OTT puts the incoming far field near $\theta=\pi$. To compare it with Eq.~\eqref{eq:debye}, replace $\theta$ by $\pi-\theta$.
 
+\section{Vortex beams}
+\label{sec:vortex}
+
+A beam with the integer vortex charge $\ell$ has the plane-wave amplitude
+\begin{equation}
+\sqrt{\varepsilon}\,\mathbf{E}_\infty=\mathcal A\,a(\theta)\,\eu^{\iu\ell\phi}\,\mathbf p,
+\label{eq:vortex}
+\end{equation}
+with $\mathbf p$ from Eq.~\eqref{eq:rule}. The beam stays symmetric about $z$, and its total angular momentum along $z$ is $\sigma+\ell$. The power~\eqref{eq:power} does not change, because $|\eu^{\iu\ell\phi}\mathbf p|=1$. The integral over $\phi$ uses $\int_0^{2\pi}\eu^{\iu m\phi}\eu^{\iu x\cos(\phi-\varphi)}\dd\phi=2\pi\iu^mJ_m(x)\,\eu^{\iu m\varphi}$. The fields are
+\begin{align}
+\sqrt{\varepsilon}\,\mathbf E(\mathbf r)&=2\pi\mathcal A\int \limits_0^{\theta_{\max}}\dd\theta\,\frac{a\sin\theta\,\eu^{\iu kz\cos\theta}}{\sqrt{1+c^2}}
+\nonumber\\&\quad\times
+\Big[\frac{c\cos\theta+1}{\sqrt2}\,\iu^{\ell}J_{\ell}\,\eu^{\iu\ell\varphi}\,\ort{e}_\sigma
+\nonumber\\&\quad
++\frac{c\cos\theta-1}{\sqrt2}\,\iu^{\ell+2\sigma}J_{\ell+2\sigma}\,\eu^{\iu(\ell+2\sigma)\varphi}\,\ort{e}_{-\sigma}
+\nonumber\\&\quad
+-c\sin\theta\,\iu^{\ell+\sigma}J_{\ell+\sigma}\,\eu^{\iu(\ell+\sigma)\varphi}\,\ort{z}\Big],
+\label{eq:vortex_E}
+\end{align}
+\begin{align}
+\sqrt{\mu}\,\mathbf H(\mathbf r)&=-2\pi\iu\sigma\mathcal A\int \limits_0^{\theta_{\max}}\dd\theta\,\frac{a\sin\theta\,\eu^{\iu kz\cos\theta}}{\sqrt{1+c^2}}
+\nonumber\\&\quad\times
+\Big[\frac{\cos\theta+c}{\sqrt2}\,\iu^{\ell}J_{\ell}\,\eu^{\iu\ell\varphi}\,\ort{e}_\sigma
+\nonumber\\&\quad
++\frac{\cos\theta-c}{\sqrt2}\,\iu^{\ell+2\sigma}J_{\ell+2\sigma}\,\eu^{\iu(\ell+2\sigma)\varphi}\,\ort{e}_{-\sigma}
+\nonumber\\&\quad
+-\sin\theta\,\iu^{\ell+\sigma}J_{\ell+\sigma}\,\eu^{\iu(\ell+\sigma)\varphi}\,\ort{z}\Big],
+\label{eq:vortex_H}
+\end{align}
+with $J_m=J_m(k\rho\sin\theta)$. For $\ell=0$, $J_{-m}=(-1)^mJ_m$ reduces these to Eqs.~\eqref{eq:bessel} and~\eqref{eq:bessel_H}. Each term carries the total angular momentum $\sigma+\ell$: spin $\sigma$, $-\sigma$ and $0$ with orbital $\ell$, $\ell+2\sigma$ and $\ell+\sigma$. Only $J_0$ is not zero on the axis, so the field on the axis vanishes unless $\ell\in\{0,-\sigma,-2\sigma\}$.
+
+Two helicities with opposite charges give cylindrical vector beams. The pupil vectors are $\ort{\rho}=(\eu^{-\iu\phi}\ort{e}_++\eu^{\iu\phi}\ort{e}_-)/\sqrt2$ and $\ort{\phi}=-\iu(\eu^{-\iu\phi}\ort{e}_+-\eu^{\iu\phi}\ort{e}_-)/\sqrt2$. A radially polarized beam is therefore the sum of $(\sigma,\ell)=(+1,-1)$ and $(-1,+1)$ with equal weights, and an azimuthally polarized beam is their difference times $-\iu$. Both have the total angular momentum $0$.
+
 % ltxgrid loses the skip above this heading when it balances the last page
 \vspace{0.4cm}
 \section{Common limit}
