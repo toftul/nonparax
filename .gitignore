@@ -40,8 +40,6 @@ htmlcov/
 *.vrb
 *.xdv
 *Notes.bib
-# built white paper (figures in theory/fig/ stay tracked)
-theory/nonparax.pdf
 
 # ---------------------------------------------------------------- editors / OS
 .DS_Store
