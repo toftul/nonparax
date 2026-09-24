@@ -60,12 +60,12 @@ arguments and return one field.
 
 | `kind` | construction | parameters |
 |---|---|---|
-| `"spectrum"` | <img src="docs/img/beam_A.png" width="400"><br>Gaussian angular spectrum, no lens | `w0` |
-| `"aplanatic"` | <img src="docs/img/beam_B.png" width="400"><br>Gaussian pupil, aplanatic objective (sine condition) | `w0` (+ stop) |
-| `"thin_lens"` | <img src="docs/img/beam_C.png" width="400"><br>Gaussian pupil, thin lens (`r = f tan θ`) | `w0` (+ stop) |
-| `"comsol"` | <img src="docs/img/beam_D.png" width="400"><br>COMSOL "plane wave expansion": the `"spectrum"` beam with the projection rule | `w0` |
-| `"ott_tan"` | <img src="docs/img/beam_E.png" width="400"><br>OTT `BscPmGauss`, `angular_scaling="tantheta"`, no energy-conservation factor | `w0` or NA |
-| `"ott_sin"` | <img src="docs/img/beam_F.png" width="400"><br>OTT `BscPmGauss`, `angular_scaling="sintheta"`, no energy-conservation factor | `w0` or NA |
+| `"spectrum"` | <img src="docs/img/beam_A.png" width="300"><br>Gaussian angular spectrum, no lens | `w0` |
+| `"aplanatic"` | <img src="docs/img/beam_B.png" width="300"><br>Gaussian pupil, aplanatic objective (sine condition) | `w0` (+ stop) |
+| `"thin_lens"` | <img src="docs/img/beam_C.png" width="300"><br>Gaussian pupil, thin lens (`r = f tan θ`) | `w0` (+ stop) |
+| `"comsol"` | <img src="docs/img/beam_D.png" width="300"><br>COMSOL "plane wave expansion": the `"spectrum"` beam with the projection rule | `w0` |
+| `"ott_tan"` | <img src="docs/img/beam_E.png" width="300"><br>OTT `BscPmGauss`, `angular_scaling="tantheta"`, no energy-conservation factor | `w0` or NA |
+| `"ott_sin"` | <img src="docs/img/beam_F.png" width="300"><br>OTT `BscPmGauss`, `angular_scaling="sintheta"`, no energy-conservation factor | `w0` or NA |
 
 All six agree in the paraxial limit, `k w0 >> 2`, and differ when the beam is
 tightly focused. To compare them, loop over `npx.KINDS`:
