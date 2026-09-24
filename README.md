@@ -14,6 +14,10 @@ equations. It includes the beams that COMSOL and the Optical Tweezers Toolbox
 pip install git+https://github.com/toftul/nonparax
 ```
 
+To get a fixed release, add its tag, for example
+`pip install git+https://github.com/toftul/nonparax@v0.1.0`. The
+[changelog](CHANGELOG.md) lists the releases.
+
 The package needs Python 3.10 or newer, NumPy 2 and SciPy.
 
 ## Quick start
