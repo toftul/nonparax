@@ -1,6 +1,6 @@
 % Illustrations of the six beams for the README (one page per beam).
 % Build: latexmk -pdf beams.tex && pdftoppm -r 150 -png beams.pdf tmp, then rename tmp-1..6.png to beam_A..F.png
-% Geometry and colours follow Fig. 3 of theory/nonparax.tex.
+% Colours follow the figures of theory/nonparax.tex.
 \documentclass[tikz,multi=tikzpicture,border=4pt]{standalone}
 \usepackage[T1]{fontenc}
 \usetikzlibrary{arrows.meta,calc,decorations.markings}
@@ -121,22 +121,7 @@
   \end{scope}
 \end{tikzpicture}
 
-% ---------------------------------------------------------------- E: OTT tantheta
-\begin{tikzpicture}
-  \bbox
-  \pgfmathsetmacro{\tha}{atan(\wap/\f)}
-  \pupil
-  \draw[line width=1.2pt,dash pattern=on 4pt off 2pt] (-\f,-2) -- (-\f,2);
-  \node[above] at (-\f,2) {OTT \texttt{tantheta}};
-  \draw[ray,cthin] (\xp-0.3,\wap) -- (-\f,\wap);
-  \draw[ray,cthin] (-\f,\wap) -- (0,0);
-  \fill[cthin] (-\f,\wap) circle (1.3pt);
-  \node[cthin] at (-0.95,-1.3) {$r=f\tan\theta$};
-  \draw[cthin] (180:0.75) arc (180:{180-\tha}:0.75);
-  \node[cthin] at (160:1.05) {$\theta_b$};
-\end{tikzpicture}
-
-% ---------------------------------------------------------------- F: OTT sintheta
+% ---------------------------------------------------------------- E: OTT sintheta
 \begin{tikzpicture}
   \bbox
   \pgfmathsetmacro{\thz}{asin(\wap/\f)}
@@ -150,6 +135,21 @@
   \node[capl] at (-0.35,-0.95) {$r=f\sin\theta$};
   \draw[capl] (180:0.6) arc (180:{180-\thz}:0.6);
   \node[capl] at (160:0.85) {$\theta_b$};
+\end{tikzpicture}
+
+% ---------------------------------------------------------------- F: OTT tantheta
+\begin{tikzpicture}
+  \bbox
+  \pgfmathsetmacro{\tha}{atan(\wap/\f)}
+  \pupil
+  \draw[line width=1.2pt,dash pattern=on 4pt off 2pt] (-\f,-2) -- (-\f,2);
+  \node[above] at (-\f,2) {OTT \texttt{tantheta}};
+  \draw[ray,cthin] (\xp-0.3,\wap) -- (-\f,\wap);
+  \draw[ray,cthin] (-\f,\wap) -- (0,0);
+  \fill[cthin] (-\f,\wap) circle (1.3pt);
+  \node[cthin] at (-0.95,-1.3) {$r=f\tan\theta$};
+  \draw[cthin] (180:0.75) arc (180:{180-\tha}:0.75);
+  \node[cthin] at (160:1.05) {$\theta_b$};
 \end{tikzpicture}
 
 \end{document}

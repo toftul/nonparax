@@ -2,7 +2,8 @@
 
 The fields are the angular-spectrum integral of the white paper, Eq. (debye),
 with the integral over the azimuth done analytically (Bessel form,
-Eqs. (bessel), (bessel_H) and the vortex section). The remaining integral over
+Eqs. (bessel), (bessel_H)). A vortex charge l multiplies the plane-wave amplitude
+by exp(i l phi), which shifts every Bessel order by l. The remaining integral over
 the polar angle theta uses fixed Gauss-Legendre quadrature.
 
 Conventions: SI units, time dependence exp(-i omega t) unless
@@ -188,7 +189,7 @@ _DOC = """
     ----------
     kind : str or (callable, callable)
         One of ``nonparax.KINDS``: "spectrum" (A), "aplanatic" (B), "thin_lens" (C),
-        "comsol" (D), "ott_tan" (E), "ott_sin" (F) -- letters as in Table I of the
+        "comsol" (D), "ott_sin" (E), "ott_tan" (F) -- letters as in Table I of the
         white paper -- or a pair ``(a, c)`` of functions of theta (rad) giving the
         envelope a(theta) (may be complex) and the real meridional weight c(theta).
     x, y, z : array_like

@@ -6,6 +6,15 @@ All notable changes to this project are listed here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- The white paper is rewritten, shorter. Fig. 2 shows where the Gaussian of
+  each beam lies. The section on vortex beams is gone; the package keeps
+  `charge`.
+- The white paper and `LETTERS` now call OTT `sintheta` beam E and OTT
+  `tantheta` beam F, so that each shares its mapping with lens B or C.
+  `KINDS` lists `"ott_sin"` before `"ott_tan"`.
+
 ## [0.1.0] - 2026-09-24
 
 First release.

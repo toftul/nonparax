@@ -56,7 +56,7 @@ def ref_fields(kind, pts, kw0, sigma, charge, P, n_th=300, n_ph=256):
     Pref = 2 * np.pi**2 / (K**2 * np.sqrt(EPS * MU)) * np.sum(np.sum(np.abs(F) ** 2, 0) * dOm)
     F = F * np.sqrt(P / Pref)
     khat = np.stack([np.sin(TH) * np.cos(PH), np.sin(TH) * np.sin(PH), np.cos(TH)])
-    G = np.cross(khat, F, axis=0)                     # sqrt(mu) H_inf, Eq. (pw)
+    G = np.cross(khat, F, axis=0)                     # sqrt(mu) H_inf, Eq. (ap)
     phase = np.exp(1j * K * np.einsum("iab,in->nab", khat, pts))
     E = np.einsum("iab,nab->in", F * dOm, phase) / np.sqrt(EPS)
     H = np.einsum("iab,nab->in", G * dOm, phase) / np.sqrt(MU)

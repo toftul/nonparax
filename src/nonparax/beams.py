@@ -13,8 +13,8 @@ LETTERS = {
     "aplanatic": "B",
     "thin_lens": "C",
     "comsol": "D",
-    "ott_tan": "E",
-    "ott_sin": "F",
+    "ott_sin": "E",
+    "ott_tan": "F",
 }
 
 KINDS = tuple(LETTERS)
